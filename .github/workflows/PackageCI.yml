@@ -1,0 +1,56 @@
+name: Build and publish packages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  job1:
+    name: Build and publish package
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.x
+
+    - name: Build
+      run: dotnet build ./FeatureFlag.Management/FeatureFlag.Management.csproj --configuration Release
+
+    - name: Pack
+      run: dotnet pack ./FeatureFlag.Management/FeatureFlag.Management.csproj  --output ./artifacts --configuration Release
+
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  './artifacts/*.nupkg'
+        repo-owner:  'felipebaltazar'
+        gh-user:  'felipebaltazar'
+        token:  ${{ secrets.GITHUB_TOKEN }}
+        
+  job2:
+    name: Build and publish package
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.x
+
+    - name: Build
+      run: dotnet build ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj --configuration Release
+
+    - name: Pack
+      run: dotnet pack ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj  --output ./artifacts --configuration Release
+
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  './artifacts/*.nupkg'
+        repo-owner:  'felipebaltazar'
+        gh-user:  'felipebaltazar'
+        token:  ${{ secrets.GITHUB_TOKEN }}
