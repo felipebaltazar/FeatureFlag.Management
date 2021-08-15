@@ -66,4 +66,4 @@ jobs:
     - name: Send report to codecov.io
       run: bash <(curl -s https://codecov.io/bash)
       env:
-        CODECOV_TOKEN: 05c00cfc-f235-45cc-a12b-f8dac34d6cce
+        CODECOV_TOKEN: 3014e220-873a-4eb7-8063-6cbb185a5f64
