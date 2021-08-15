@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   build:
 
-    name: Build with dotnet
+    name: Build packages solution
     runs-on: windows-latest
     
     steps:
@@ -19,7 +19,7 @@ jobs:
 
   analyze:
 
-    name: Analyze
+    name: Analyze code quality
     runs-on: ubuntu-latest
 
     strategy:
@@ -46,3 +46,24 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+  unitTests:
+
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: Run dotnet test
+      run: dotnet test FeatureFlag.Management.Tests/FeatureFlag.Management.Tests.csproj -v n /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --configuration Debug --collect:"XPlat Code Coverage"
+
+    - name: Send report to codecov.io
+      run: bash <(curl -s https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: 3014e220-873a-4eb7-8063-6cbb185a5f64

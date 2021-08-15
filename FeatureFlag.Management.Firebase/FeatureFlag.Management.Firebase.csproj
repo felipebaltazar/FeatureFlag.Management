@@ -8,11 +8,11 @@
     <RepositoryUrl>https://github.com/felipebaltazar/FeatureFlag.Management</RepositoryUrl>
     <PackageTags>feature, flag, xamarin.forms, remote, config, firebase, feature-flag, toggle</PackageTags>
     <Description>Control your featues with this escalable, mockable and decoupled sdk</Description>
-    <Version>0.0.2-pre</Version>
-    <AssemblyVersion>0.0.2.0</AssemblyVersion>
-    <FileVersion>0.0.2.0</FileVersion>
+    <Version>0.0.3-pre</Version>
+    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <FileVersion>0.0.3.0</FileVersion>
     <PackageIcon>Icon.png</PackageIcon>
-    <Configurations>Debug;Release;DebugGenerator</Configurations>
+    <Configurations>DebugGenerator;Debug;Release</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGenerator|AnyCPU'">
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0-3.final" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.11.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
   </ItemGroup>
   
   <ItemGroup>
