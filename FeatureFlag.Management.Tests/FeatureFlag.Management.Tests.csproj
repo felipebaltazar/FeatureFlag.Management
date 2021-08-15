@@ -19,6 +19,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <ProjectReference Include="..\..\FeatureFlag.Management.Firebase\FeatureFlag.Management.Firebase.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\FeatureFlag.Management\FeatureFlag.Management.csproj" />
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
 </Project>
