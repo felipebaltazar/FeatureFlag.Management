@@ -1,7 +1,9 @@
-﻿name: Build FeatureFlag.Management
+name: Build FeatureFlag.Management
 
-on: [pull_request]
-
+on:
+  push:
+    branches: [ main ]
+    
 jobs:
   build:
 
