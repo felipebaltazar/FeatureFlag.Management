@@ -15,7 +15,7 @@ jobs:
       with:
         dotnet-version: 5.x
     - name: Build with dotnet
-      run: dotnet build FeatureFlag.Management.sln --configuration Release
+      run: dotnet build FeatureFlag.Management.Packages.sln --configuration Release
 
   analyze:
 
@@ -42,7 +42,7 @@ jobs:
         dotnet-version: 5.x
 
     - name: Build solution
-      run: dotnet build FeatureFlag.Management.sln --configuration Release
+      run: dotnet build FeatureFlag.Management.Packages.sln --configuration Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
