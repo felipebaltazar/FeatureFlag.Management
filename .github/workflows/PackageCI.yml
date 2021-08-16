@@ -30,7 +30,7 @@ jobs:
         useConfigFile: true
 
     - name: Change version on csproj file
-      run: sed -i -e 's/PackageVersion>[0-9a-z.-]*</PackageVersion>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management/FeatureFlag.Management.csproj
+      run: sed -i -e 's/Version>[0-9a-z.-]*</Version>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management/FeatureFlag.Management.csproj
       
     - name: Build
       run: dotnet build ./FeatureFlag.Management/FeatureFlag.Management.csproj --configuration Release
@@ -72,7 +72,7 @@ jobs:
         useConfigFile: true
 
     - name: Change version on csproj file
-      run: sed -i -e 's/PackageVersion>[0-9a-z.-]*</PackageVersion>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj
+      run: sed -i -e 's/Version>[0-9a-z.-]*</Version>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj
 
     - name: Build
       run: dotnet build ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj --configuration Release
