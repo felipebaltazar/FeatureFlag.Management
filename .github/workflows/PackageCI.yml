@@ -6,7 +6,7 @@ on:
 
 jobs:
   job1:
-    name: Build and publish package
+    name: Build and publish FeatureFlag.Management
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +15,20 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.x
+        
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
 
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+
+    - name: Change version on csproj file
+      run: sed -i -e 's/PackageVersion>[0-9a-z.-]*</PackageVersion>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management/FeatureFlag.Management.csproj
+      
     - name: Build
       run: dotnet build ./FeatureFlag.Management/FeatureFlag.Management.csproj --configuration Release
 
@@ -31,15 +44,29 @@ jobs:
         token:  ${{ secrets.GITHUB_TOKEN }}
         
   job2:
-    name: Build and publish package
+    name: Build and publish FeatureFlag.Management.Firebase
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.x
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+
+    - name: Change version on csproj file
+      run: sed -i -e 's/PackageVersion>[0-9a-z.-]*</PackageVersion>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj
 
     - name: Build
       run: dotnet build ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj --configuration Release
