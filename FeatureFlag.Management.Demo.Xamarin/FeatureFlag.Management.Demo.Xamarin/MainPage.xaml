@@ -24,7 +24,4 @@
             </StackLayout>
         </FeatureView.DisabledView>
     </FeatureView>
-
-
-
 </ContentPage>
