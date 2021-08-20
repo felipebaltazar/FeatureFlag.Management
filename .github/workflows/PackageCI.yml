@@ -87,3 +87,44 @@ jobs:
         repo-owner:  'felipebaltazar'
         gh-user:  'felipebaltazar'
         token:  ${{ secrets.GITHUB_TOKEN }}
+
+  job3:
+    name: Build and publish FeatureFlag.Management.Xamarin.Forms
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.x
+        
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+        
+    - name: Fetch all repository
+      run: git fetch --unshallow
+      
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+
+    - name: Change version on csproj file
+      run: sed -i -e 's/Version>[0-9a-z.-]*</Version>'$GITVERSION_NUGETVERSION'</' ./FeatureFlag.Management.Xamarin.Forms/FeatureFlag.Management.Xamarin.Forms.csproj
+      
+    - name: Build
+      run: dotnet build ./FeatureFlag.Management.Xamarin.Forms/FeatureFlag.Management.Xamarin.Forms.csproj --configuration Release
+
+    - name: Pack
+      run: dotnet pack ./FeatureFlag.Management.Xamarin.Forms/FeatureFlag.Management.Xamarin.Forms.csproj  --output ./artifacts --configuration Release
+
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  './artifacts/*.nupkg'
+        repo-owner:  'felipebaltazar'
+        gh-user:  'felipebaltazar'
+        token:  ${{ secrets.GITHUB_TOKEN }}
