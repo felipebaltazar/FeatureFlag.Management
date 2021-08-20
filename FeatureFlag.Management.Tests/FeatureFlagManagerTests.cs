@@ -25,5 +25,25 @@ namespace FeatureFlag.Management.Tests
             Assert.True(fakefeature.Data.All(d => deserializedValue.Contains(d)));
             Assert.Equal(Constants.FAKE_FEATURE_IS_ENABLED_VALUE, fakefeature.IsEnabled);
         }
+
+        [Fact(DisplayName = "Manager deve conseguir resolver feature pelo tipo")]
+        public void Manager_Should_Resolve_Feature_By_Type()
+        {
+            var manager = new FeatureFlagManager(_featureResolver.Object);
+            var fakefeature = manager.Get(typeof(FakeFeature));
+
+            Assert.NotNull(fakefeature);
+            Assert.True(fakefeature is FakeFeature);
+        }
+
+        [Fact(DisplayName = "Manager deve conseguir resolver feature pelo tipo <T>")]
+        public void Manager_Should_Resolve_Feature_By_Generic_Type()
+        {
+            var manager = new FeatureFlagManager(_featureResolver.Object);
+            var fakefeature = manager.Get<FakeFeature>();
+
+            Assert.NotNull(fakefeature);
+            Assert.True(fakefeature is FakeFeature);
+        }
     }
 }
