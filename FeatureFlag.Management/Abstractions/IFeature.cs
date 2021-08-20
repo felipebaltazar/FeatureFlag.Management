@@ -1,4 +1,6 @@
-﻿namespace FeatureFlag.Management
+﻿using System;
+
+namespace FeatureFlag.Management
 {
     /// <summary>
     /// Defines that some object is a feature
@@ -9,6 +11,11 @@
         /// returns if feature is enabled or not
         /// </summary>
         bool IsEnabled { get; }
+
+        /// <summary>
+        /// Event to be handled when IsEnabled changes
+        /// </summary>
+        event EventHandler OnEnabledChanged;
     }
 
     /// <summary>

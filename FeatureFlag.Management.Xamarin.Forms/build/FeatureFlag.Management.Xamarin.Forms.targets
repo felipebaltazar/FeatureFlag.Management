@@ -1,0 +1,6 @@
+﻿<Project>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)PreserveFeatureFlagManagementForms.cs"
+             Visible="false" />
+  </ItemGroup>
+</Project>

@@ -21,6 +21,10 @@ namespace FeatureFlag.Management
             return ResolveForType<TFeature>(featureType);
         }
 
+        /// <inheritdoc/>
+        public IFeature Get(Type featureType) =>
+            ResolveForType<IFeature>(featureType);
+
         /// <summary>
         /// Resolve the instance for a specified feature
         /// </summary>

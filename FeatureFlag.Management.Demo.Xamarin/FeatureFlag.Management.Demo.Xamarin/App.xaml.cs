@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FeatureFlag.Management.Xamarin.Forms;
+using Xamarin.Forms;
 
 namespace FeatureFlag.Management.Demo.Xamarin
 {
@@ -8,15 +9,14 @@ namespace FeatureFlag.Management.Demo.Xamarin
         {
             InitializeComponent();
 
+            var myResolver = new MyResolver();
+            var myFeature = new MyFeature(myResolver);
+            var manager = new FeatureFlagManager(myResolver);
+
+            FeatureFlagManager.SetDefaultFeatureBuilder((t) => myFeature);
+            FeatureView.SetFeatureManagerResolver(() => manager);
+
             MainPage = new MainPage();
-
-            var manager = new FeatureFlagManager(new MyResolver());
-            var myFeature = manager.Get<MyFeature>();
-
-            if (myFeature.IsEnabled)
-            {
-                // do somethng
-            }
         }
 
         protected override void OnStart()
