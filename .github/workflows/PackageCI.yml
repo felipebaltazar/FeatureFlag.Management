@@ -2,7 +2,9 @@ name: Build and publish packages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
 
 jobs:
   job1:
@@ -40,12 +42,20 @@ jobs:
 
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      if: github.ref == 'refs/heads/develop'
       with:
         nupkg-path:  './artifacts/*.nupkg'
         repo-owner:  'felipebaltazar'
         gh-user:  'felipebaltazar'
         token:  ${{ secrets.GITHUB_TOKEN }}
         
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      if: github.ref == 'refs/heads/main'
+      with:
+        PROJECT_FILE_PATH: ./FeatureFlag.Management/FeatureFlag.Management.csproj
+        NUGET_KEY: ${{secrets.NUGET_TOKEN}}
+        VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
   job2:
     name: Build and publish FeatureFlag.Management.Firebase
     runs-on: ubuntu-latest
@@ -82,11 +92,20 @@ jobs:
 
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      if: github.ref == 'refs/heads/develop'
       with:
         nupkg-path:  './artifacts/*.nupkg'
         repo-owner:  'felipebaltazar'
         gh-user:  'felipebaltazar'
         token:  ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Publish NuGet.org
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      if: github.ref == 'refs/heads/main'
+      with:
+        PROJECT_FILE_PATH: ./FeatureFlag.Management.Firebase/FeatureFlag.Management.Firebase.csproj
+        NUGET_KEY: ${{secrets.NUGET_TOKEN}}
+        VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
 
   job3:
     name: Build and publish FeatureFlag.Management.Xamarin.Forms
@@ -123,8 +142,17 @@ jobs:
 
     - name: Push Nupkg to GitHub Packages
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      if: github.ref == 'refs/heads/develop'
       with:
         nupkg-path:  './artifacts/*.nupkg'
         repo-owner:  'felipebaltazar'
         gh-user:  'felipebaltazar'
         token:  ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      if: github.ref == 'refs/heads/main'
+      with:
+        PROJECT_FILE_PATH: ./FeatureFlag.Management.Xamarin.Forms/FeatureFlag.Management.Xamarin.Forms.csproj
+        NUGET_KEY: ${{secrets.NUGET_TOKEN}}
+        VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
