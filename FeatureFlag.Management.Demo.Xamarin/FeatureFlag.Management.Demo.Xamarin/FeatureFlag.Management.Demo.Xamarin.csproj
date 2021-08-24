@@ -26,5 +26,6 @@
     <ProjectReference Include="..\..\FeatureFlag.Management.Firebase\FeatureFlag.Management.Firebase.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     
     <ProjectReference Include="..\..\FeatureFlag.Management\FeatureFlag.Management.csproj" />
+    <ProjectReference Include="..\..\FeatureFlag.Management.Xamarin.Forms\FeatureFlag.Management.Xamarin.Forms.csproj" />
   </ItemGroup>
 </Project>

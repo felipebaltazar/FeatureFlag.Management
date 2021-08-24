@@ -1,6 +1,5 @@
-using Xamarin.Forms.Xaml;
+﻿
 using FeatureFlag.Management.Xamarin.Forms;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
+// This will intialize the XAML namespace in your project, without any ".Init()" call
 [assembly: PreserveFeatureFlagManagementXamarinForms]

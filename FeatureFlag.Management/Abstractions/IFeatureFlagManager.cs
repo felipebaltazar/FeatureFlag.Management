@@ -1,4 +1,6 @@
-﻿namespace FeatureFlag.Management
+﻿using System;
+
+namespace FeatureFlag.Management
 {
     /// <summary>
     /// Manages the registred features
@@ -11,5 +13,12 @@
         /// <typeparam name="TFeature">Feature type</typeparam>
         /// <returns>Instance of feature</returns>
         TFeature Get<TFeature>() where TFeature : class, IFeature;
+
+        /// <summary>
+        /// Returns a specific feature
+        /// </summary>
+        /// <param name="featureType">Feature type</param>
+        /// <returns>Instance of feature</returns>
+        IFeature Get(Type featureType);
     }
 }

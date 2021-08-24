@@ -15,9 +15,22 @@ namespace FeatureFlag.Management
         protected virtual IFeatureResolver FlagResolver { get; }
 
         /// <inheritdoc/>
-        public abstract bool IsEnabled
+        public event EventHandler OnEnabledChanged;
+
+        private bool _isEnabled;
+
+        /// <inheritdoc/>
+        public virtual bool IsEnabled
         {
-            get; protected set;
+            get => _isEnabled;
+            protected set
+            {
+                if (_isEnabled == value)
+                    return;
+
+                _isEnabled = value;
+                OnEnabledChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>
@@ -25,6 +38,7 @@ namespace FeatureFlag.Management
         /// </summary>
         /// <param name="flagResolver">Service that will resolve feature properties in cloud like Azure or RemoteConfig</param>
         protected BaseFeature(IFeatureResolver flagResolver) => FlagResolver = flagResolver;
+
 
         #region Protected methods
 

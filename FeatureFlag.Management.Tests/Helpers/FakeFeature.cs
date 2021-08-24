@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -10,8 +11,8 @@ namespace FeatureFlag.Management.Tests.Helpers
         [DefaultValue(Constants.FAKE_FEATURE_IS_ENABLED_VALUE)]
         public override bool IsEnabled
         {
-            get;
-            protected set;
+            get => base.IsEnabled;
+            protected set => base.IsEnabled = value;
         }
 
         [DisplayName(Constants.FAKE_FEATURE_DATA_KEY)]
@@ -26,6 +27,11 @@ namespace FeatureFlag.Management.Tests.Helpers
         {
             IsEnabled = GetDefaultValueFor(f => f.IsEnabled);
             Data = GetDefaultValueFor(f => f.Data);
+        }
+
+        internal void UpdateIsEnabled(bool v)
+        {
+            IsEnabled = v;
         }
     }
 }

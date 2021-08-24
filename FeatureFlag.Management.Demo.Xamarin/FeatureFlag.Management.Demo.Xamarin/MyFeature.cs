@@ -9,8 +9,8 @@ namespace FeatureFlag.Management.Demo.Xamarin
         [DisplayName("myfeature_enabled")]
         public override bool IsEnabled
         {
-            get;
-            protected set;
+            get => base.IsEnabled;
+            protected set => base.IsEnabled = value;
         }
 
         [DefaultValue("[\"1\", \"2\", \"3\"]")]
@@ -25,8 +25,14 @@ namespace FeatureFlag.Management.Demo.Xamarin
         {
             // Here you can set others dependencies to mock or extend this functionality
             // eg.:  IMockService myMockService or IEventAggregatoor eventAggregator
+            MyMocker.Instance.Observe(this);
             IsEnabled = GetDefaultValueFor(@this => @this.IsEnabled);
             Data = GetDefaultValueFor(@this => @this.Data);
+        }
+
+        public void SetIsEnabled(bool isFeatureEnabled)
+        {
+            IsEnabled = isFeatureEnabled;
         }
     }
 }
